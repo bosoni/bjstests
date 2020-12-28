@@ -1,0 +1,202 @@
+nyt näkyy ku obuja ladataan koska ne tulee heti sceneen ja async.
+1 tapa: laitata lataamisvaiheessa visible=false ja vast ku kaik ladattu ni visible=true.
+2 tapa: laittaa kameran kohdal pienen cuben jossa normaalit sisällepäin (sillo kamera on cuben sisällä eikä tietenkään näe mitään), ja ku kaik latautunu ni cube poistetaan
+
+	// https://doc.babylonjs.com/how_to/createbox_per_face_textures_and_colors
+	let faceColors = new Array(6);
+	for(int q=0;q<6;q++) faceColors[q] = new BABYLON.Color4(0,0,0,1);
+	let options = {	size : 1, faceColors : faceColors };
+	let box = BABYLON.MeshBuilder.CreateBox("box", options, scene);
+
+
+
+BUGS:
+** välil ammo toimii, välil ei. ihmesekoiluu typescriptin kaa...
+
+* material vain VIKA muuttaa materiaalia (väri, alpha), muut ei
+     myClonedMesh.material = myClonedMesh.material.clone()
+
+* spider pelissä ku liiskaa ötön ni kestää hetki ennen ku blood kuva tulee
+  mut lataan kyl blood kuvan alussa jo, joten MIKS se ei sit yhes frames näy? hm..
+ 
+* loadGLTF testissä modelit latautuu ja Y ja Z toimii, mut X on aina 0. 
+   miten tää o mahdollista ees? mä laitan vissii mesheille ton paikan mut
+   toimiik toi sit eritaval että pitäis laittaa roottiin pos vai mitenköhän lienee.
+
+  
+* reson vaihtoo ja kokoruutu: (tuo vissii sit skaalaa joten kait nopeempi)
+	canvas.style.width = "800px";
+	canvas.style.height = "600px"; 
+	renderer = new BABYLON.Engine(canvas, true);
+	canvas.style.width = '100%';
+	canvas.style.height = '100%';
+	enterFullscreen(requestPointerLock: boolean);
+
+* tsekkaa release exportin koko ja kato minkälaisii filui ym.
+
+
+
+-------
+5.2.20 käyttäny mut sit vaihdoin enginee, yllättäen taas...........--------
+BJS: ok, ei aseteta rigidbodya blenderissä vaan koodissa.
+pitäis tehdä pieni collision shape editor:
+  voi valita (1)box, (2)sphere
+  nuolinäppäimillä impostoria voi liikuttaa
+  z,x näppäimillä scale
+  enter hyväksyy  (ja sit taas jos painaa 1 tai 2 luodaan uus)
+kaik arvot tallennetaan vaik txt filuun.
+
+>>>> jos skaalaa collision shapea, ammojs ei enää toimi! <<<<
+>>> jos tekee cube CB ja muut meshit sen childiks, sit ku skaalaa obua ni paikat menee pieleen. syytä en tiedä.
+
+joinaa meshit, lisää collision obut niihin, pääsee testaamaan fysiikkaa benchmarkilla   #OK, ny joinattu ja löytyy _SB ja _mass1  filuja.
+nyt objektien keskipiste on world origossa (että fysiikka toimiis oikein),
+mutta jos esim puut pistää suoraan raycast xyz kohtaan ni ne menee maan
+sisään. siksi obuissa on  GR  niminen plane joka on pistetty objektin "jalkaan"
+eli siihen kohtaan mikä pitää mennä maahan.
+luulen että saan toimii tän niin että lisään Model3D:hen  floorY  muuttujan
+johon laitettaan GR obun Y.  ja kun tsekataan onk mass 0 (eli staticbody) ni lisätään obun y:hyn floorY.  menisköhä jotenki tuollee?
+
+ja jos mass arvoa voi muuttaa koodilla ni sit ei tarviis _SB ja _mass filuja erikseen vaa laitetaan koodilla, pitääki tsekata:     
+      sphere.physicsImpostor.setMass(1) 
+
+----------------------------------------------------------------
+* benchmark näyttää 3 tapaa miten saada modeleita kartalle: load(), createCloned(), createInstanced()
+  * createCloned() kloonaa myös collision shapen mutta kloonin CB:n kokoa EI voi muuttaa
+  * createInstanced() ei käytä fysiikkamoottoria mut createCB() kloonaa obujen CB:t (joiden kokoja EI voi muuttaa)
+
+
+NOTES:
+** load() asettaa myös fyssat jos nimissä CB (blenderillä tehty COLLISION BOX).
+** load_orig() EI aseta CB fyssaobuja.
+
+* modelien luonti: jos monia obuja, pidä origo world-origossa eli ctrl+A Apply
+ (tai paina CTRL+G (obu menee origoon), menee edit modeen ja siirrä vain vertexejä)
+
+FYSIIKAT:
+* rigidBody: active, mass>0
+* staticBody: active, mass=0
+
+ANIMAATION luonti (NLA): blender 2.8
+ * Animation -välilehti -> sit vasemmal puolella vaihda Nonlinear Animation (eli NLA)
+ * keskikohdasta vaihtaa Action Editor, sit  New, valitse kaik bonet ja I - Whole character), tää normiasento menee ArmatureAction nimiseen raitaan (ei ehkä tarpeellinen mut ei haittaakaan).
+ * klikkaa Fake user (ja tuo tietenkin kaikkiin animaatioihin että tallentuu blend filuun)
+ * paina New Action, anna nyt nimi esim Idle, sit Fake user, tee anim. sit taas uutta jne.
+ * en käyttäny Push Down enkä Stash
+ ** exporttaa .babylon formaatissa, sillä näytti toimivan  (gltf formaatissa ei näkyny mitään)
+ * animation blending  TODO
+
+
+TYPOS:
+*** scene.dispose()  release all held RESSOURCES <- ! typo
+*** https://doc.babylonjs.com/how_to/how_to_use_instances  object with clic right
+*** https://doc.babylonjs.com/features/es6_support   Earcut/Oimo/Canon
+*** https://doc.babylonjs.com/how_to/reduce_memory_footprint (could ba string 
+
+Babylonjs  1.11.18, 22.7.19, 4.1.2020, 14.9.2020
+================================================
+INST:
+* asenna vscode + chrome debugger
+* nodejs + npm
+* src/ hakemistossa:
+  npm install
+  npm install kripken/ammo.js
+  npm install cannon
+* käynnistä visual studio code, avaa  src/ hakemisto
+* index.ts filussa voi valita testin minkä käynnistää
+
+* npm start
+* debug:   vscodessa paina F5  (servu pitää olla päällä eli ensin npm start)
+* release: npm run build   (dist/ hakemistossa release verssu)
+
+** .ts compiler ja .js käynnistys: (ilman visual studio codea)
+  luo esim test.ts filu.
+  tsc test.ts
+  node test.js
+
+
+TS/JS infoi:    https://www.typescriptlang.org/docs/handbook/basic-types.html
+* String.includes  (sama kuin c# String.Contains)
+
+* kannattaa käyttää mieluummin  let  kuin  var, koska  var arvo;  voi laittaa monta kertaa eikä tuu virhettä 
+  mutta  let arvo;  voi määritellä vain kerran (kuten esim c#/java ym kielissä)
+* muuttujien määrittelyt luokan alkuun
+* käytä 'this.' kaikissa luokan muuttujissa
+* Taulukot:
+    let list: number[] = [1, 2, 3];	// array
+    let list: Array<number> = [1, 2, 3]; // "vector"
+
+    let x: [string, number];		// "dict"/"map"
+    x = ["hello", 10];
+    str = x[0].substring(1);
+* Esimerkkejä / taulukon luominen ja lisääminen taulukkoon:
+    characters : Character[] = [];	// ei siis new Character[10]; ym
+    Character tmp = new Character();
+    characters.push(tmp);		// lisätään  taulukkoon
+
+*  == vs ===  (=== on strict vertailu)
+   '22'==22  true
+   '22'===22 false
+
+* "Error in onSuccess callback" / callbackeissa ei voi käyttää suoraan this, joten tee 
+   let _this = this;  // käytä _this:iä (kuten clock testissä)
+
+
+NOTES:
+* scene.dispose();		https://forum.babylonjs.com/t/how-do-you-properly-remove-an-object-from-the-scene/1790/4
+
+* LOG: console.log("joo juu");
+
+* RANDOM:
+     let rnd = Math.floor(Math.random() * 5);
+     let x = Math.random() * AREA - AREA/2;
+
+* JOS ei FreeCamera niin muista   
+    this.camera.attachControl(this.canvas, true);
+
+* SPRITE:
+     ei voi laittaa pivotpointtia (Billboardeille kai voi).
+     pyöritys tapahtuu siis keskipisteen ympäri. 
+
+* siirsin Plane2D -luokan  omaan tiedostoon, tuli ihme virheitä pääohjelmaan.
+  fix: Plane2D.ts filun alkuun: import * as BABYLON from 'babylonjs';  ja virheet hävis.
+
+* type casting (ei sulkeita, vaan <> ):
+        let mat : StandardMaterial;
+        mat = <StandardMaterial> tmp.plane.material;
+
+
+* FYSIIKAT:
+ * aimojs (1.7MB): 
+    blenderissä voi asettaa rigid bodyn. käytä active. jos haluaa SB niin laita mass=0
+ 
+ * cannon (380KB): blenderissä/koodilla pitää tehdä collisionshapet. jos blenderissä, vois käyttää nimissä parametreja:
+      BB, BS, BC   luo collision area boundingboxista/spherestä/cylinderistä
+      CB, CS, CC   meshi on collisionbox/sphere/cylinder (käytä prefabeissa)
+
+ 
+
+TODO:
+* class, if, for, array []          #OK
+  * array splice laittaa datan haluttuun kohtaan (kuten insert) #OK
+    esim  this.jono.splice(0, 0, rnd); // laita ekaks
+  * poistaminen:   this.jono.splice(index, 1); // delete item
+* periytyminen/interface .ts	    #OK
+* näytä fps			                #OK
+* liikuta 2d ukkoa		            #OK
+* näytä hiiren koordinaatit	        #OK (this.scene.pointerX, this.scene.pointerY)
+* lataa txt filu                    #OK
+* kello			                    #OK
+* Model3D                           #OK
+* tsekkaus onko modelit ladattu     #OK
+* instancing                        #OK
+* Plane2D texture lataus            #OK
+  * tsekkaus onko texturet ladattu --ei tehty
+
+* crush'em              #OK
+* näppäilypeli (toot)   #OK
+* menu / skenen vaihto  #OK
+* palapeli              #OK
+* physics (ammo)        #OK
+* physics (cannon)		#OK
+

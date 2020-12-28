@@ -1,0 +1,37 @@
+BLENDER: 
+How to Use NLA and Actions:  https://www.youtube.com/watch?v=weMes839wlc
+http://www.html5gamedevs.com/topic/39537-importing-and-playing-named-animations-from-blender/
+
+TYPESCRIPT:
+https://howtodoinjava.com/typescript/typescript-tutorial/
+https://github.com/ideepakkrishnan/babylonjs-typescript-starter
+
+ES6 ja "treeshaking" (eli otetaan käyttöön vain ne moduulit mitä tarvitaan, eli pienempi koko):
+https://doc.babylonjs.com/features/es6_support
+
+DEBUG:
+https://docs.microsoft.com/en-us/visualstudio/javascript/debug-nodejs?view=vs-2019
+
+---BJS:---
+https://doc.babylonjs.com/how_to/using_the_physics_engine
+https://doc.babylonjs.com/how_to/how_to_use_postprocesses
+
+MULTIPLAYER: https://forum.babylonjs.com/t/can-you-make-a-server-based-game-in-babylonjs/2052/2
+GLTF2: https://doc.babylonjs.com/how_to/gltf#version-2-only
+EASING: https://doc.babylonjs.com/babylon101/animations
+
+OPTIMOINTI:
+https://www.google.com/search?q=babylonjs+quality+level&oq=babylonjs+quality+level&aqs=chrome..69i57.5805j0j1&sourceid=chrome&ie=UTF-8
+https://doc.babylonjs.com/how_to/how_to_use_sceneoptimizer
+https://doc.babylonjs.com/how_to/optimizing_your_scene
+https://doc.babylonjs.com/how_to/how_to_merge_meshes
+
+ANIM BLENDING:
+https://www.babylonjs-playground.com/#BCU1XR#0
+
+GUI:
+https://doc.babylonjs.com/how_to/gui
+
+PolygonMeshBuilder:
+https://doc.babylonjs.com/how_to/polygonmeshbuilder
+

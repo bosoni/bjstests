@@ -1,0 +1,24 @@
+{"producer":{"name":"Blender","version":"2.81 (sub 16)","exporter_version":"6.2.4","file":"comp.babylon"},
+"autoClear":true,"clearColor":[0.0509,0.0509,0.0509],"gravity":[0,-9.81,0],
+"materials":[{"name":"Material","id":"Material","customType":"BABYLON.PBRMaterial","backFaceCulling":true,"checkReadyOnlyOnce":false,"maxSimultaneousLights":4,"environmentIntensity":1,"reflectivity":[0.5,0.5,0.5],"roughness":0.4,"alpha":1,"transparencyMode":0,"alphaCutOff":0.4,"metallic":0, 
+"albedoTexture":{"name":"comp1.png","level":1,"hasAlpha":true,"coordinatesMode":0,"uOffset":0,"vOffset":0,"uScale":1,"vScale":1,"uAng":0,"vAng":0,"wAng":0,"wrapU":1,"wrapV":1,"coordinatesIndex":0},"useAlphaFromAlbedoTexture":true}],
+"multiMaterials":[],
+"skeletons":[],
+"meshes":[{"name":"Cube","id":"Cube","materialId":"Material","billboardMode":0,"position":[0,1,0],"rotation":[0,0,0],"scaling":[1,1,1],"isVisible":true,"freezeWorldMatrix":false,"isEnabled":true,"checkCollisions":false,"receiveShadows":false,"pickable":true,"tags":""
+,"positions":[-1,1,1,-0.0815,1,-1,-0.0815,1,1,-0.0815,1,-1,-1,1,-1,-1,-1,-1,-1,1,-1,-1,-1,1,-1,-1,-1,1,-1,1,-1,-1,-1,-1,-1,1,1,-0.0172,1,1,-1,-1,1,-1,1,1,-0.0172,1,-1,-1,1
+,-0.0815,1,1,1,-0.0172,1,-0.0815,1,-1,1,-0.0172,-1,-1,1,-1,1,-1,-1,1,-0.0172,-1,1,-0.0172,-1,-0.0815,1,-1,-1,1,-1,-1,1,1,1,-1,-1,-1,-1,-1,1,-0.0172,-1,1,-1,1,-1,-1,1,1,-0.0172,1
+,-1,-1,1,-1,1,1,-0.0815,1,1,1,-0.0172,1,-0.0815,1,1,-0.0815,1,-1]
+,"normals":[0,1,0,0,1,0,0,1,0,0,0,-1,0,0,-1,0,0,-1,-1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,0,-1,0,1,0,0,1,0,0,1,0,0,0,0,1,0,0,1
+,0,0,1,0.685,0.728,0,0.685,0.728,0,0.685,0.728,0,0,1,0,0,0,-1,0,0,-1,0,0,-1,0,0,-1,-1,0,0,-1,0,0,0,-1,0,0,-1,0,1,0,0,0,0,1,0,0,1,0,0,1
+,0,0,1,0,0,1,0,0,1,0.685,0.728,0,0.685,0.728,0,0.685,0.728,0]
+,"uvs":[0.995,0.454,-0.005,-0.005,0.995,-0.005,0.057,0.176,0.057,0.08,0.265,0.08,0.997,0.462,-0.003,-0.538,-0.003,0.462,0.995,-0.546,-0.005,0.454,0.995,0.454,-2.485,-0.722,3.479,2.209,-2.485,2.209,0.194,0.082,0.07,0.334,0.322,0.218,0.995,-0.546,-0.005,-0.005,-0.005,-0.546,-0.005,0.454,0.265,0.289,0.163,0.289,0.163,0.289
+,0.057,0.176,0.997,0.462,0.997,-0.538,-0.005,-0.546,-0.005,0.454,3.479,-0.722,0.07,0.082,0.07,0.334,0.194,0.082,0.07,0.334,0.322,0.334,0.322,0.218,0.995,-0.546,0.995,-0.005,-0.005,-0.005]
+,"indices":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,0,21,1,5,22,23,24,25,5,26,27,7,9,28,29,12,30,13,31,32,33,34,35,36,37,38,39]
+,"subMeshes":[{"materialIndex":0,"verticesStart":0,"verticesCount":40,"indexStart":0,"indexCount":48}]
+,"instances":[]}
+],
+"morphTargetManagers":[],
+"cameras":[],
+"lights":[],
+"shadowGenerators":[]
+}

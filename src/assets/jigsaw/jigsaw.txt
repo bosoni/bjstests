@@ -1,0 +1,20 @@
+GIMP -> INKSCAPE -> BLENDER  PALAPELI
+
+GIMP: filter - render - patterin - jigsaw  -> export kuvaks
+
+INKSCAPE: importtaa kuva, trace path  -> save svg
+
+BLENDER:
+ importtaa svg blenderiin
+ alt+c mesh from path
+ extrudee pathi
+ luo plane, siirrä ja skaalaa planea että palaset sopii planeen (ja vähän yli)
+ planeen boolean modifier, pist alasvetovalikkoon path
+ alt+RMB voi valita joka palan erikseen
+ P (separation) selection niin saa palaset erillisiks objekteiks
+
+
+In jigsaw4.babylon, you might need to change albedoTexture path, ie
+  "albedoTexture":{"name":"jigsaw/jigsaw.png"
+  
+ 
